@@ -21,11 +21,11 @@ char* hello(char* const input) {
     *str = (char)toupper(*str);
 
     char* str1 = strdup("Hello, ");
-    if(str1 == NULL) {
+    if (str1 == NULL) {
         return NULL;
     }
     str1 = (char*)realloc(str1, (strlen(str1) + strlen(str) + 2) * sizeof(char));
-    if(str1 == NULL) {
+    if (str1 == NULL) {
         return NULL;
     }
 
@@ -37,9 +37,21 @@ char* hello(char* const input) {
     return str1;
 }
 
+char* const hello1(char* const input) {
+    char* str = (char*)malloc((strlen("Hello, ") + strlen(
+        (input == NULL || strcmp(input, "") == 0)? "World" : input) + 2) * sizeof(char));
+    strcpy(str, "Hello, ");
+    strcat(str, (input == NULL || strcmp(input, "") == 0)? "World" : input);
+    str[strlen("Hello, ")] = (char)toupper(str[strlen("Hello, ")]);
+    for (int i = strlen("Hello, ") + 1; i < strlen(str); ++i) {
+        str[i] = (char)tolower(str[i]);
+    }
+    return strcat(str, "!");
+}
+
 
 int main(void) {
-    static char* message = "usErFJFKjkljFj";
-    printf( "%s", hello(message));
+    char* message = "oleh";
+    printf( "%s", hello1(message));
     return 0;
 }
